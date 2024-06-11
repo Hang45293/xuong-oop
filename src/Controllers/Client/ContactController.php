@@ -13,6 +13,7 @@ class ContactController extends Controller
 
     }
 
+    
     public function store()
     {
         echo __CLASS__ . '@' . __FUNCTION__;

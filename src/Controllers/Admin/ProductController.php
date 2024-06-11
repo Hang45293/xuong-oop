@@ -4,7 +4,6 @@ namespace Pc\XuongOop\Controllers\Admin;
 
 use Pc\XuongOop\Commons\Controller;
 use Pc\XuongOop\Commons\Helper;
-// use Pc\Base\Models\Category;
 use Pc\XuongOop\Models\Category;
 use Pc\XuongOop\Models\User;
 use Pc\XuongOop\Models\Product;

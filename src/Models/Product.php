@@ -3,19 +3,20 @@
 namespace Pc\XuongOop\Models;
 use Pc\XuongOop\Commons\Model;
 
+
 class Product extends Model
 {
     protected string $tableName = 'products';
 
-    public function all(){
+    public function all() {
         return $this->queryBuilder
         ->select(
             'p.id', 'p.category_id', 'p.name', 'p.img_thumbnail', 'p.created_at', 'p.updated_at',
             'c.name as c_name'
         )
-        ->from($this->tableName,'p')
-        ->innerJoin('p','categories', 'c', 'c.id = p.category_id')
-        ->orderBy('p.id','desc')
+        ->from($this->tableName, 'p')
+        ->innerJoin('p', 'categories', 'c', 'c.id = p.category_id')
+        ->orderBy('p.id', 'desc')
         ->fetchAllAssociative();
     }
 
@@ -32,30 +33,28 @@ class Product extends Model
             'p.id', 'p.category_id', 'p.name', 'p.img_thumbnail', 'p.created_at', 'p.updated_at',
             'c.name as c_name'
         )
-        ->from($this->tableName,'p')
-        ->innerJoin('p','categories', 'c', 'c.id = p.category_id')
+        ->from($this->tableName, 'p')
+        ->innerJoin('p', 'categories', 'c', 'c.id = p.category_id')
         ->setFirstResult($offset)
         ->setMaxResults($perPage)
-        ->orderBy('p.id','desc')
+        ->orderBy('p.id', 'desc')
         ->fetchAllAssociative();
 
         return [$data, $totalPage];
     }
 
-
-
-    public function findByID($id){
+    public function findByID($id)
+    {
         return $this->queryBuilder
         ->select(
             'p.id', 'p.category_id', 'p.name', 'p.img_thumbnail', 'p.created_at', 'p.updated_at',
-            'p.overview', 'p.content',
+            'p.overview', 'p.content','p.price_sale','p.price_regular',
             'c.name as c_name'
         )
-        ->from($this->tableName,'p')
-        ->innerJoin('p','categories', 'c', 'c.id = p.category_id')
-        ->setParameter(0, $id)
-        ->fetchAllAssociative();
+            ->from($this->tableName, 'p')
+            ->innerJoin('p', 'categories', 'c', 'c.id = p.category_id')
+            ->where('p.id = ?')
+            ->setParameter(0, $id)
+            ->fetchAssociative();
     }
-
-
 }
